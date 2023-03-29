@@ -23,6 +23,7 @@ public class Pizza {
     private String description;
 
     private BigDecimal price;
+    private String image;
 
 
     //getter e setter di tutti i campi
@@ -58,5 +59,13 @@ public class Pizza {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

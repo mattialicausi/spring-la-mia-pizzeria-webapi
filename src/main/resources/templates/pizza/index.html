@@ -18,8 +18,8 @@
         <h1 class="my-3">Pizzeria Dallo Zio</h1>
 
         <div class="row">
-            <div class=" card col-sm-12 col-md-6 col-lg-4 m-2" style="width: 18rem;" th:each="pizza : ${pizzeList}">
-                <img src="..." class="card-img-top" alt="...">
+            <div class=" card col-sm-12 col-md-6 col-lg-4 m-2 p-0" style="width: 18rem;" th:each="pizza : ${pizzeList}">
+                <img th:src="${pizza.image}" class="card-img-top h-75" th:alt="${pizza.name}">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${pizza.name}"></h5>
                     <p class="card-text" th:text="${pizza.description}"></p>
@@ -27,6 +27,8 @@
 
                 </div>
             </div>
+
+            <div th:if="${pizzeList.size() == 0}">Al momento non abbiamo delle pizze</div>
         </div>
     </div>
 
