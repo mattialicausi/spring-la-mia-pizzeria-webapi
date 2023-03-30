@@ -7,7 +7,7 @@
 <body>
 
   <header class="container">
-    <nav th:replace="~{fragments :: navbar('home', '')}"></nav>
+    <nav th:replace="~{fragments :: navbar('home', '', false)}"></nav>
   </header>
 
   <div class="container" th:object="${pizza}">

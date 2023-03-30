@@ -17,7 +17,7 @@
 
             <!--     NAVBAR       -->
 
-        <th:block th:fragment="navbar(current, keyword)">
+        <th:block th:fragment="navbar(current, keyword, showSearch)">
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand">Logo</a>
@@ -33,7 +33,7 @@
                                 <a class="nav-link" href="#">Pizze</a>
                             </li>
                         </ul>
-                        <form class="d-flex" role="search" method="get" th:action="@{/pizza}">
+                        <form class="d-flex" role="search" method="get" th:action="@{/pizza}" th:if="${showSearch}">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" th:value="${keyword}">
                             <button class="btn btn-outline-success" type="submit">Cerca</button>
                         </form>
