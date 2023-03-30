@@ -9,4 +9,8 @@ public interface PizzaRepository extends JpaRepository<Pizza, Integer> {
 
     public List<Pizza> findByNameContainingIgnoreCase(String name);
 
+    public List<Pizza> findByPriceLessThan(Integer price);
+
+    List<Pizza> findByNameContainingIgnoreCaseAndPriceLessThan(String name, Integer price);
+
 }
