@@ -5,12 +5,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Home page</title>
 </head>
 <body>
 
     <header class="container">
-        <nav th:replace="~{fragments :: navbar('home')}"></nav>
+        <nav th:replace="~{fragments :: navbar('home', ${keyword})}"></nav>
     </header>
 
     <div class="container">
@@ -22,14 +22,22 @@
                 <img th:src="${pizza.image}" class="card-img-top h-75" th:alt="${pizza.name}">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${pizza.name}"></h5>
-                    <p class="card-text" th:text="${pizza.description}"></p>
-                    <span class="card-text" th:text="${pizza.price}"></span><span>€</span>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="card-text" th:text="${pizza.description}"></p>
+                        <p class="card-text" th:text="|€ ${pizza.price}|"></p>
+                    </div>
+
+                    <a th:href="@{|/pizza/${pizza.id}|}" class="btn btn-primary">Vedi dettagli</a>
+
 
                 </div>
             </div>
 
-            <div th:if="${pizzeList.size() == 0}">Al momento non abbiamo delle pizze</div>
+
         </div>
+
+        <p th:unless="${pizzeList.size > 0}"> Spiacente non abbiamo pizze</p>
     </div>
 
 
