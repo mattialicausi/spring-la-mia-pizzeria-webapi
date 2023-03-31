@@ -1,6 +1,9 @@
 package org.spring.pizzeria.crud.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 
@@ -16,15 +19,30 @@ public class Pizza {
 
     //ALTRI CAMPI
 
+    @NotEmpty(message = "Devi inserire il nome")
     private String name;
 
     //LOB per allungare la descrizionde come se fossee text in mySQL
     @Lob
+    @NotEmpty(message = "Devi inserire la descrizione")
     private String description;
 
+    @NotNull(message = "Devi inserire il prezzo")
+    @PositiveOrZero(message = "Il prezzo deve essere superiore o uguale a 0")
     private BigDecimal price;
+
     private String image;
 
+    public Pizza() {
+        super();
+    }
+
+    public Pizza(String name, String description, BigDecimal price, String image) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.image = image;
+    }
 
     //getter e setter di tutti i campi
 
