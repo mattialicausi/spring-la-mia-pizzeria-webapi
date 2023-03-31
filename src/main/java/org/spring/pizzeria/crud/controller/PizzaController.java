@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,30 +25,18 @@ public class PizzaController {
     private PizzaRepository pizzaRepository;
 
     @GetMapping
-    public String index(Model model, @RequestParam(name = "q") Optional<String> keyword, @RequestParam(name = "price") Optional<Integer> price) {
+    public String index(Model model, @RequestParam(name = "q") Optional<String> keyword) {
 
-        List<Pizza> pizze = Collections.emptyList();
+        List<Pizza> pizze;
 
-        if (keyword.isEmpty() && price.isEmpty()){
+        if (keyword.isEmpty()){
 
             pizze = pizzaRepository.findAll(Sort.by("name"));
 
-        } else if (keyword.isPresent() && price.isPresent()) {
-
-            pizze = pizzaRepository.findByNameContainingIgnoreCaseAndPriceLessThan(keyword.get(), price.get());
-            model.addAttribute("keyword", keyword.get());
-            model.addAttribute("price", price.get());
-
-
-        }else if(price.isEmpty()) {
+        } else {
 
             pizze = pizzaRepository.findByNameContainingIgnoreCase(keyword.get());
             model.addAttribute("keyword", keyword.get());
-
-        } else if (keyword.isEmpty()) {
-
-            pizze = pizzaRepository.findByPriceLessThan(price.get());
-            model.addAttribute("price", price.get());
 
         }
 
