@@ -15,7 +15,14 @@
 
     <div class="container">
 
-        <h1 class="my-3">Pizzeria Dallo Zio</h1>
+        <div class="d-flex align-items-center">
+            <h1 class="my-3">Pizzeria Dallo Zio </h1>
+            <a th:href="@{/pizza/create}" class="ms-2" title="Aggiungi">
+                <i class="fa-solid fa-square-plus fs-1"></i>
+            </a>
+        </div>
+
+
 
         <div class="row">
             <div class=" card col-sm-12 col-md-6 col-lg-4 m-2 p-0" style="width: 18rem;" th:each="pizza : ${pizzeList}">
