@@ -22,6 +22,14 @@
             </a>
         </div>
 
+        <th:block th:if="${message}">
+            <div class="alert alert-dismissible fade show"
+                 th:classAppend="${#strings.equals(message.type, 'SUCCESS')} ? alert-success : alert-danger">
+                <div th:text="${message.text}"></div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Chiudi"></button>
+            </div>
+        </th:block>
+
 
 
         <div class="row">
@@ -37,6 +45,15 @@
 
                     <a th:href="@{|/pizza/${pizza.id}|}" class="btn btn-primary">Vedi dettagli</a>
 
+                    <a th:href="@{|/pizza/edit/${pizza.id}|}" class="btn btn-primary">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+
+                    <a th:href="@{|/pizza/delete/${pizza.id}|}" class="btn btn-danger" title="delete">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </a>
+
+
 
                 </div>
             </div>
@@ -46,6 +63,8 @@
 
         <p th:unless="${pizzeList.size > 0}"> Spiacente non abbiamo pizze</p>
     </div>
+
+
 
 
 </body>

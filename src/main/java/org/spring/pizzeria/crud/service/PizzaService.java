@@ -50,4 +50,19 @@ public class PizzaService {
     public List<Pizza> getAllPizze() {
         return pizzaRepository.findAll(Sort.by("name"));
     }
+
+
+    // metodo che torna vero o falso se trova l'id di una pizza nel DB
+    public boolean deleteById(Integer id) {
+
+        pizzaRepository.findById(id).orElseThrow(()-> new PizzaNotFoundException("Pizza con id " + id + " non trovata"));
+
+        try {
+            pizzaRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
 }

@@ -2,6 +2,8 @@ package org.spring.pizzeria.crud.controller;
 
 import jakarta.validation.Valid;
 import org.spring.pizzeria.crud.exceptions.PizzaNotFoundException;
+import org.spring.pizzeria.crud.model.AlertMessage;
+import org.spring.pizzeria.crud.model.AlertMessage.AlertMessageType;
 import org.spring.pizzeria.crud.model.Pizza;
 import org.spring.pizzeria.crud.repository.PizzaRepository;
 import org.spring.pizzeria.crud.service.PizzaService;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -78,6 +81,55 @@ public class PizzaController {
 
         return "redirect:/pizza";
 
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+
+        model.addAttribute("pizza", pizzaService.getById(id));
+
+        return "/pizza/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()) {
+            return "/pizza/edit";
+        }
+
+        pizzaRepository.save(formPizza);
+
+        return "redirect:/pizza";
+
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+
+        try {
+
+            boolean success = pizzaService.deleteById(id);
+
+            if (success) {
+
+                redirectAttributes.addFlashAttribute("message",
+                        new AlertMessage(AlertMessageType.SUCCESS, "Pizza con id " + id + " eliminata"));
+
+            } else {
+
+                redirectAttributes.addFlashAttribute("message",
+                        new AlertMessage(AlertMessageType.SUCCESS, "Pizza con id " + id + " non può essere eliminata"));
+            }
+
+
+
+        } catch (PizzaNotFoundException e) {
+            redirectAttributes.addFlashAttribute("message",
+                    new AlertMessage(AlertMessageType.SUCCESS, "Pizza con id " + id + " non trovata"));
+        }
+
+        return "redirect:/pizza";
 
     }
 }
