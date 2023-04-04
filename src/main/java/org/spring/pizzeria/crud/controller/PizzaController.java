@@ -5,7 +5,6 @@ import org.spring.pizzeria.crud.exceptions.PizzaNotFoundException;
 import org.spring.pizzeria.crud.model.AlertMessage;
 import org.spring.pizzeria.crud.model.AlertMessage.AlertMessageType;
 import org.spring.pizzeria.crud.model.Pizza;
-import org.spring.pizzeria.crud.repository.PizzaRepository;
 import org.spring.pizzeria.crud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +23,13 @@ import java.util.Optional;
 public class PizzaController {
 
     //SPRING INIETTA LA DIPENDENZA COME FIELD INJECTION
-    @Autowired
-    private PizzaRepository pizzaRepository;
+//    @Autowired
+//    private PizzaRepository pizzaRepository;
 
     @Autowired
     PizzaService pizzaService;
 
+    //INDEX
     @GetMapping
     public String index(Model model, @RequestParam(name = "q") Optional<String> keyword) {
 
@@ -51,6 +51,8 @@ public class PizzaController {
 
     }
 
+    //SHOW
+
     @GetMapping("/{pizzaId}")
     public String show(@PathVariable("pizzaId") Integer id, Model model) {
 
@@ -63,6 +65,8 @@ public class PizzaController {
         }
 
     }
+
+    //CREATE
 
     @GetMapping("/create")
     public String create(Model model) {
@@ -83,12 +87,22 @@ public class PizzaController {
 
     }
 
+    //UPDATE
+
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
 
-        model.addAttribute("pizza", pizzaService.getById(id));
+        try {
 
-        return "/pizza/edit";
+            Pizza pizza = pizzaService.getById(id);
+            model.addAttribute("pizza", pizza);
+            return "/pizza/edit";
+
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id " + id + " non trovata");
+        }
+
+
     }
 
     @PostMapping("/edit/{id}")
@@ -98,11 +112,18 @@ public class PizzaController {
             return "/pizza/edit";
         }
 
-        pizzaRepository.save(formPizza);
+        try {
 
-        return "redirect:/pizza";
+            Pizza updatedPizza = pizzaService.updatePizza(formPizza, id);
+            return "redirect:/pizza/" + Integer.toString(updatedPizza.getId());
+
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id " + id + "non trovata");
+        }
 
     }
+
+    //DELETE
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {

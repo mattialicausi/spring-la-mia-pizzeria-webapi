@@ -65,4 +65,18 @@ public class PizzaService {
         }
 
     }
+
+    public Pizza updatePizza(Pizza formPizza, Integer id) {
+
+        Pizza pizzaToPersist = getById(id);
+
+        pizzaToPersist.setName(formPizza.getName());
+        pizzaToPersist.setDescription(formPizza.getDescription());
+        pizzaToPersist.setPrice(new BigDecimal(String.valueOf(formPizza.getPrice())));
+        pizzaToPersist.setImage(formPizza.getImage());
+
+
+        return pizzaRepository.save(pizzaToPersist);
+
+    }
 }
