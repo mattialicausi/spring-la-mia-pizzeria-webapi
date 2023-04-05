@@ -5,4 +5,8 @@ INSERT INTO db_pizzeria.pizze (description, image, name, price) VALUES('La nostr
 INSERT INTO db_pizzeria.pizze (description, image, name, price) VALUES('Pizza golosa', 'https://www.lucianopignataro.it/wp-content/uploads/2019/06/Pizza-Quattro-formaggi.jpg', 'Quattro formaggi', 13.00);
 INSERT INTO db_pizzeria.pizze (description, image, name, price) VALUES('Pizza molto buona', 'https://media-cdn.tripadvisor.com/media/photo-s/10/04/b0/77/pizza-kebab-completa.jpg', 'Kebab', 15.00);
 
-
+INSERT INTO db_pizzeria.offer (end_date, start_date, title, pizza_id) VALUES('2023-05-25', '2023-05-05', 'Paghi una prendi due', 118);
+INSERT INTO db_pizzeria.offer (end_date, start_date, title, pizza_id) VALUES('2023-15-25', '2023-08-05', 'Paghi una prendi due', 115);
+INSERT INTO db_pizzeria.offer (end_date, start_date, title, pizza_id) VALUES('2023-15-22', '2023-10-05', 'Paghi una prendi due', 120);
+INSERT INTO db_pizzeria.offer (end_date, start_date, title, pizza_id) VALUES('2023-06-22', '2023-05-05', 'Paghi una prendi due', 116);
+INSERT INTO db_pizzeria.offer (end_date, start_date, title, pizza_id) VALUES('2023-06-25', '2023-09-05', 'Paghi una prendi due', 119);

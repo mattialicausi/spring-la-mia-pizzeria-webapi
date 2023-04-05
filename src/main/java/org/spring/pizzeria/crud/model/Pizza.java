@@ -52,6 +52,14 @@ public class Pizza {
     //getter e setter di tutti i campi
 
 
+    public List<Offer> getOffer() {
+        return offer;
+    }
+
+    public void setOffer(List<Offer> offer) {
+        this.offer = offer;
+    }
+
     public Integer getId() {
         return id;
     }

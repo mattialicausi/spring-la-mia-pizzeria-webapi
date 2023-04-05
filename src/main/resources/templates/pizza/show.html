@@ -27,6 +27,33 @@
 
     </div>
 
+    <h2>
+      <span>Offerte</span>
+      <a th:href="@{/offer/create(pizzaId=${pizza.id})}"
+         class="btn btn-primary rounded-circle"
+         title="Aggiungi offerta"
+      >
+        <i class="fa-solid fa-plus"></i>
+      </a>
+    </h2>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Titolo</th>
+        <th scope="col">Data di inizio</th>
+        <th scope="col">Data di fine</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="offer : *{offer}" th:object="${offer}">
+        <td th:text="${offer.title}"></td>
+        <td th:text="${#temporals.format(offer.startDate, 'dd/MM/yyyy')}"></td>
+        <td th:text="${#temporals.format(offer.endDate, 'dd/MM/yyyy')}"></td>
+      </tr>
+      </tbody>
+    </table>
+
   </div>
 
 </body>

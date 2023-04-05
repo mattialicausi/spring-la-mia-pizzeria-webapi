@@ -45,6 +45,15 @@ public class Offer {
 
 
     //getter e setter
+
+    public Pizza getPizza() {
+        return pizza;
+    }
+
+    public void setPizza(Pizza pizza) {
+        this.pizza = pizza;
+    }
+
     public Integer getId() {
         return id;
     }
