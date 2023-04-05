@@ -1,0 +1,75 @@
+package org.spring.pizzeria.crud.model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "offer")
+public class Offer {
+
+    //variables
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NotNull
+    @FutureOrPresent
+    private LocalDate startDate;
+
+    @NotNull
+    @Future
+    private LocalDate endDate;
+
+    @NotNull
+    private String title;
+
+
+    //contructor
+    public Offer() {
+    }
+
+    public Offer(Integer id, LocalDate startDate, LocalDate endDate, String title) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.title = title;
+    }
+
+
+    //getter e setter
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+}
