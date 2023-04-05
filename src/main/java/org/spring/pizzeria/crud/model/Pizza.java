@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 //ASSEGNO ENTITA' E CAMBIO IL NOME NELLA TABELLA
 @Entity
@@ -16,6 +17,10 @@ public class Pizza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    //relations
+    @OneToMany(mappedBy = "pizza")
+    private List<Offer> offer;
 
     //ALTRI CAMPI
 

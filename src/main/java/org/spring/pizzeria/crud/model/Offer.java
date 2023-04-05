@@ -16,6 +16,10 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    //relations
+    @ManyToOne
+    private Pizza pizza;
+
     @NotNull
     @FutureOrPresent
     private LocalDate startDate;
