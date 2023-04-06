@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: header-links}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <header class="container">
+    <nav th:replace="~{fragments :: navbar('home', ${keyword}, true)}"></nav>
+  </header>
+
+
+
+   <main class="container">
+        <div class="row">
+            <div class="col-6">
+
+                <h2 class="my-3">
+                    <span>Tutti gli ingredienti </span>
+                    <span>
+                       <a th:href="@{/ingredient/create}" class="ms-2" title="Aggiungi">
+                        <i class="fa-solid fa-square-plus fs-1"></i>
+                        </a>
+                    </span>
+                </h2>
+
+                <div class="row my-4" th:each="ing : *{ingredients}">
+
+                    <span class="col-3" th:text="${ing.name}"></span>
+
+                    <span class="col-3">
+                        <a th:href="@{|/ingredient/delete/${ing.id}|}" class="btn btn-danger" title="delete">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </span>
+                </div>
+
+            </div>
+            <div class="col-6">
+
+                <form
+                    method="post"
+                    th:action="@{/ingredient/save}"
+                    id="ingredient_form"
+                    th:object="${newIngredient}"
+                >
+
+                    <!-- name -->
+                    <div class="col-4 my-3">
+                        <label class="form-label" for="name">Name*</label>
+                        <input type="text" id="name" class="form-control" th:field="*{name}"
+                               th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+   </main>
+
+</body>
+</html>
