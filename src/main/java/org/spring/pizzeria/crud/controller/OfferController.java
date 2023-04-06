@@ -1,6 +1,7 @@
 package org.spring.pizzeria.crud.controller;
 
 import jakarta.validation.Valid;
+import org.spring.pizzeria.crud.exceptions.OfferNotFoundException;
 import org.spring.pizzeria.crud.exceptions.PizzaNotFoundException;
 import org.spring.pizzeria.crud.model.Offer;
 import org.spring.pizzeria.crud.model.Pizza;
@@ -60,6 +61,36 @@ public class OfferController {
 
         Offer newOffer = offerService.create(formOffer);
         return "redirect:/pizza/" + Integer.toString(newOffer.getPizza().getId());
+
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        try {
+            Offer offer = offerService.getById(id);
+            model.addAttribute("offer", offer);
+            return "/offer/edit";
+        } catch (OfferNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza with id " + id + " not found");
+        }
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute Offer formOffer, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()) {
+//            return "redirect:/offer/edit/{id}";
+            return "/offer/edit";
+        }
+
+        try {
+
+            Offer updatedOffer = offerService.updateOffer(formOffer, id);
+            return "redirect:/pizza/" + (updatedOffer.getPizza().getId());
+
+        } catch (OfferNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Offer con id " + id + "non trovata");
+        }
 
     }
 }

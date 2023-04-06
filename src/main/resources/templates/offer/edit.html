@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: header-links}">
+  <meta charset="UTF-8">
+  <title>Modifica offerta</title>
+</head>
+<body>
+
+<header class="container">
+  <nav th:replace="~{fragments :: navbar('home', '', false)}"></nav>
+</header>
+
+<div class="container" th:with="pizza = ${offer.pizza}">
+
+  <h2>
+    <span>Modifica l'offerta</span>
+  </h2>
+
+  <form
+          id="offer-form"
+          th:action="@{|/offer/edit/${offer.id}|}"
+          method="post"
+          class="row gy-3"
+          th:object="${offer}"
+
+  >
+
+<!--    input per id-->
+
+    <input type="hidden" th:field="*{pizza}">
+
+    <!-- title -->
+    <div class="col-4">
+      <label class="form-label" for="title">Title*</label>
+      <input required type="text" id="title" class="form-control" th:field="*{title}"
+             th:errorClass="is-invalid">
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- start date -->
+    <div class="col-4">
+      <label class="form-label" for="start-date">Data di inizio*</label>
+      <input required type="date" id="start-date" class="form-control" th:field="*{startDate}"
+             th:errorClass="is-invalid">
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('startDate')}" th:text="${err}"></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- end date -->
+    <div class="col-4">
+      <label class="form-label" for="end-date">Data di fine*</label>
+      <input required type="date" id="end-date" class="form-control" th:field="*{endDate}"
+             th:errorClass="is-invalid">
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('endDate')}">
+        <ul>
+          <li th:each="err : ${#fields.errors('endDate')}" th:text="${err}"></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <button type="submit" class="btn btn-primary">Salva</button>
+      <a class="btn btn-primary" th:href="@{|/pizza/${offer.pizza.id}|}">Torna indietro</a>
+    </div>
+
+  </form>
+
+</div>
+
+</body>
+</html>

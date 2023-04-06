@@ -1,7 +1,6 @@
 package org.spring.pizzeria.crud.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,15 +19,15 @@ public class Offer {
     @ManyToOne
     private Pizza pizza;
 
-    @NotNull
-    @FutureOrPresent
+//    @NotEmpty(message = "La data di inizio è obbligatoria")
+    @FutureOrPresent(message = "La data di inizio deve essere futura")
     private LocalDate startDate;
 
-    @NotNull
-    @Future
+//    @NotEmpty(message = "La data di fine è obbligatoria")
+    @FutureOrPresent(message = "La data di fine deve essere futura")
     private LocalDate endDate;
 
-    @NotNull
+    @NotNull(message = "Il titolo è obbligatorio")
     private String title;
 
 

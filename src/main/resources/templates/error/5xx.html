@@ -28,7 +28,15 @@
                 </div>
             </div>
         </div>
+
+
+        <div th:if="${exception}">
+            <!-- only in dev mode -->
+            <p th:text="${exception}"></p>
+            <p th:text="${trace}"></p>
+        </div>
     </section>
+
 
 </body>
 </html>
