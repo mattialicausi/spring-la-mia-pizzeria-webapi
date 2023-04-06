@@ -1,5 +1,6 @@
 package org.spring.pizzeria.crud.service;
 
+import org.spring.pizzeria.crud.exceptions.OfferNotFoundException;
 import org.spring.pizzeria.crud.exceptions.PizzaNotFoundException;
 import org.spring.pizzeria.crud.model.Offer;
 import org.spring.pizzeria.crud.repository.OfferRepository;
@@ -39,10 +40,20 @@ public class OfferService {
         offerToSave.setEndDate(formOffer.getEndDate());
 //        offerToPersist.setPizza(formOffer.getPizza());
 
-
-
         return offerRepository.save(offerToSave);
 
+    }
+
+    public boolean deleteById(Integer id) {
+
+        offerRepository.findById(id).orElseThrow(()-> new OfferNotFoundException("Offerta con id " + id + " non trovata."));
+
+        try {
+            offerRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
