@@ -25,6 +25,7 @@ public class PizzaService {
         pizzaToPersist.setDescription(formPizza.getDescription());
         pizzaToPersist.setPrice(new BigDecimal(String.valueOf(formPizza.getPrice())));
         pizzaToPersist.setImage(formPizza.getImage());
+        pizzaToPersist.setIngredients(formPizza.getIngredients());
 
 
         return pizzaRepository.save(pizzaToPersist);
@@ -74,6 +75,7 @@ public class PizzaService {
         pizzaToPersist.setDescription(formPizza.getDescription());
         pizzaToPersist.setPrice(new BigDecimal(String.valueOf(formPizza.getPrice())));
         pizzaToPersist.setImage(formPizza.getImage());
+        pizzaToPersist.setIngredients(formPizza.getIngredients());
 
 
         return pizzaRepository.save(pizzaToPersist);

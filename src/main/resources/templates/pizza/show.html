@@ -23,6 +23,14 @@
         <p th:text="*{description}"></p>
         <p th:text="|*{price} €|"></p>
 
+        <h2>Ingredienti</h2>
+        <div>
+          <p th:each="ing : ${ingredients}" th:text="${ing.name}"></p>
+        </div>
+
+        <div th:if="${pizza.ingredients.size() == 0 || pizza.ingredients == null}">Ancora nessun ingrediente</div>
+
+
       </div>
 
     </div>

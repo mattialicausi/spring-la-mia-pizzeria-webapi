@@ -9,3 +9,18 @@ INSERT INTO db_pizzeria.offer (end_date, start_date, title, pizza_id) VALUES('20
 INSERT INTO db_pizzeria.offer (end_date, start_date, title, pizza_id) VALUES('2023-12-09', '2023-6-6', 'Paghi una, prendi due',3);
 INSERT INTO db_pizzeria.offer (end_date, start_date, title, pizza_id) VALUES('2023-12-09', '2023-6-6', 'Paghi una, prendi due',4);
 INSERT INTO db_pizzeria.offer (end_date, start_date, title, pizza_id) VALUES('2023-12-09', '2023-6-6', 'Paghi una, prendi due',5);
+INSERT INTO db_pizzeria.ingredients (name) VALUES('Mozzarella');
+INSERT INTO db_pizzeria.ingredients (name) VALUES('Salsa al pomodoro');
+INSERT INTO db_pizzeria.ingredients (name) VALUES('Basilico');
+INSERT INTO db_pizzeria.ingredients (name) VALUES('Salame');
+INSERT INTO db_pizzeria.ingredients (name) VALUES('Olive');
+INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(1, 1);
+INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(1,2);
+INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(1, 3);
+INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(1, 5;
+INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(2, 1);
+INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(2,2);
+INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(2, 4);
+INSERT INTO db_pizzeria.ingredient_pizza (pizza_id, ingredient_id) VALUES(2,5);
+
+

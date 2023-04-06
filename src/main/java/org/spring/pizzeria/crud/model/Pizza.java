@@ -7,6 +7,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 //ASSEGNO ENTITA' E CAMBIO IL NOME NELLA TABELLA
 @Entity
@@ -21,6 +22,14 @@ public class Pizza {
     //relations
     @OneToMany(mappedBy = "pizza")
     private List<Offer> offer;
+
+    @ManyToMany
+    @JoinTable(
+            name = "ingredient_pizza",
+            joinColumns = @JoinColumn(name  = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private Set<Ingredient> ingredients;
 
     //ALTRI CAMPI
 
@@ -51,6 +60,14 @@ public class Pizza {
 
     //getter e setter di tutti i campi
 
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public List<Offer> getOffer() {
         return offer;

@@ -5,6 +5,7 @@ import org.spring.pizzeria.crud.exceptions.PizzaNotFoundException;
 import org.spring.pizzeria.crud.model.AlertMessage;
 import org.spring.pizzeria.crud.model.AlertMessage.AlertMessageType;
 import org.spring.pizzeria.crud.model.Pizza;
+import org.spring.pizzeria.crud.service.IngredientService;
 import org.spring.pizzeria.crud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,9 @@ public class PizzaController {
 
     @Autowired
     PizzaService pizzaService;
+
+    @Autowired
+    IngredientService ingredientService;
 
     //INDEX
     @GetMapping
@@ -59,6 +63,8 @@ public class PizzaController {
         try {
             Pizza pizza = pizzaService.getById(id);
             model.addAttribute("pizza", pizza);
+            model.addAttribute("ingredients", pizza.getIngredients());
+
             return "/pizza/show";
         } catch (PizzaNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
@@ -71,13 +77,18 @@ public class PizzaController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", ingredientService.getAll());
         return "/pizza/create";
     }
 
     @PostMapping("/create")
     public String doCreate(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
 
-        if (bindingResult.hasErrors()) {
+        boolean hasErrors = bindingResult.hasErrors();
+
+        if (hasErrors) {
+
+            model.addAttribute("ingredients", ingredientService.getAll());
             return "/pizza/create";
         }
 
@@ -96,6 +107,7 @@ public class PizzaController {
 
             Pizza pizza = pizzaService.getById(id);
             model.addAttribute("pizza", pizza);
+            model.addAttribute("ingredients", ingredientService.getAll());
             return "/pizza/edit";
 
         } catch (PizzaNotFoundException e) {
@@ -109,6 +121,7 @@ public class PizzaController {
     public String update(@PathVariable Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()) {
+            model.addAttribute("ingredients", ingredientService.getAll());
             return "/pizza/edit";
         }
 
