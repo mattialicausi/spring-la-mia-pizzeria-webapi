@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,11 +26,14 @@ public class Pizza {
     private List<Offer> offer;
 
     @ManyToMany
+    @OnDelete(action = OnDeleteAction.CASCADE)
+
     @JoinTable(
             name = "ingredient_pizza",
             joinColumns = @JoinColumn(name  = "pizza_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
+
     private Set<Ingredient> ingredients;
 
     //ALTRI CAMPI

@@ -16,11 +16,7 @@
 
                 <h2 class="my-3">
                     <span>Tutti gli ingredienti </span>
-                    <span>
-                       <a th:href="@{/ingredient/create}" class="ms-2" title="Aggiungi">
-                        <i class="fa-solid fa-square-plus fs-1"></i>
-                        </a>
-                    </span>
+
                 </h2>
 
                 <div class="row my-4" th:each="ing : *{ingredients}">
@@ -36,6 +32,14 @@
 
             </div>
             <div class="col-6">
+
+                <h2 class="my-3">
+                    <span>Crea un nuovo ingrediente</span>
+
+                    <span class="btn btn-primary rounded-circle" title="Aggiungi">
+                        <i class="fa-solid fa-plus"></i>
+                    </span>
+                </h2>
 
                 <form
                     method="post"
