@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:insert="~{fragments :: header-links}">
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -16,8 +17,8 @@
     <div class="container">
 
         <div class="d-flex align-items-center">
-            <h1 class="my-3 me-2">Pizzeria Dallo Zio </h1>
-            <a th:href="@{/pizza/create}" class="btn btn-primary rounded-circle" title="Aggiungi">
+            <h1 class="my-3 me-2">Pizzeria Magie </h1>
+            <a th:href="@{/pizza/create}" sec:authorize="hasAuthority('ADMIN')"  class="btn btn-primary rounded-circle" title="Aggiungi">
                 <i class="fa-solid fa-plus"></i>
             </a>
         </div>
@@ -45,11 +46,15 @@
 
                     <a th:href="@{|/pizza/${pizza.id}|}" class="btn btn-primary">Vedi dettagli</a>
 
-                    <a th:href="@{|/pizza/edit/${pizza.id}|}" class="btn btn-primary">
+                    <a th:href="@{|/pizza/edit/${pizza.id}|}"
+                       sec:authorize="hasAuthority('ADMIN')"
+                       class="btn btn-primary">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
 
-                    <a th:href="@{|/pizza/delete/${pizza.id}|}" class="btn btn-danger" title="delete">
+                    <a th:href="@{|/pizza/delete/${pizza.id}|}"
+                       sec:authorize="hasAuthority('ADMIN')"
+                       class="btn btn-danger" title="delete">
                         <i class="fa-solid fa-trash-can"></i>
                     </a>
 

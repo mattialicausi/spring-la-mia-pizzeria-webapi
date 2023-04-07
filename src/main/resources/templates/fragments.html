@@ -1,4 +1,7 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+
 
     <head>
 
@@ -34,7 +37,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/ingredient}">Ingredienti</a>
+                                <a class="nav-link" th:href="@{/ingredient}" sec:authorize="hasAuthority('ADMIN')">Ingredienti</a>
                             </li>
                         </ul>
                         <form class="d-flex" role="search" method="get" th:action="@{/pizza}" th:if="${showSearch}">
@@ -42,6 +45,20 @@
 
                             <button class="btn btn-primary  text-white" type="submit">Cerca</button>
                         </form>
+
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                            <li class="nav-item">
+                                <a class="nav-link" sec:authentication="name">Ingredienti</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link"  th:href="@{/logout}" >Logout</a>
+                            </li>
+
+                        </ul>
+
+
 
                     </div>
                 </div>

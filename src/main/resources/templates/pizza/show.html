@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{fragments :: header-links}">
     <meta charset="UTF-8">
     <title>Pizza details</title>
@@ -40,8 +41,9 @@
       <a th:href="@{/offer/create(pizzaId=${pizza.id})}"
          class="btn btn-primary rounded-circle"
          title="Aggiungi offerta"
+         sec:authorize="hasAuthority('ADMIN')"
       >
-        <i class="fa-solid fa-plus"></i>
+        <i  class="fa-solid fa-plus"></i>
       </a>
     </h2>
 
@@ -59,12 +61,12 @@
         <td th:text="${#temporals.format(offer.startDate, 'dd/MM/yyyy')}"></td>
         <td th:text="${#temporals.format(offer.endDate, 'dd/MM/yyyy')}"></td>
         <td>
-          <a th:href="@{|/offer/edit/*{id}|}" class="btn btn-primary" title="edit">
+          <a th:href="@{|/offer/edit/*{id}|}" sec:authorize="hasAuthority('ADMIN')" class="btn btn-primary" title="edit">
             <i class="fa-solid fa-pen-to-square"></i>
           </a>
         </td>
         <td>
-          <a th:href="@{|/offer/delete/${offer.id}|}" class="btn btn-danger" title="delete">
+          <a th:href="@{|/offer/delete/${offer.id}|}" sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger" title="delete">
             <i class="fa-solid fa-trash-can"></i>
           </a>
         </td>
