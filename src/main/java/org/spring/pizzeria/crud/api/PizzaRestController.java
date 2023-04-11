@@ -1,5 +1,6 @@
 package org.spring.pizzeria.crud.api;
 
+import jakarta.validation.Valid;
 import org.spring.pizzeria.crud.exceptions.PizzaNotFoundException;
 import org.spring.pizzeria.crud.model.Pizza;
 import org.spring.pizzeria.crud.service.PizzaService;
@@ -43,5 +44,47 @@ public class PizzaRestController {
 
     }
 
+    //crea pizza
+    @PostMapping("/{id}")
+    public Pizza update(@PathVariable Integer id, @Valid @RequestBody Pizza pizza) {
+
+        try {
+            return pizzaService.updatePizza(pizza, id);
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
+    }
+
+    // modifica pizza
+    @PutMapping("/{id}")
+    public Pizza updatePizza(@PathVariable Integer id, @Valid @RequestBody Pizza pizza) {
+
+        try {
+            return pizzaService.updatePizza(pizza, id);
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
+    }
+
+    //delete pizza
+    public void delete(@PathVariable Integer id) {
+
+        try {
+            boolean success = pizzaService.deleteById(id);
+
+            if(!success) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Impossibile eliminare perchè ha degli ingredienti");
+            }
+        } catch (PizzaNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+    }
 
 }
