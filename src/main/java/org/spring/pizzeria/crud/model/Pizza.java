@@ -1,5 +1,6 @@
 package org.spring.pizzeria.crud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -22,8 +23,10 @@ public class Pizza {
     private Integer id;
 
     //relations
+    @JsonIgnore
     @OneToMany(mappedBy = "pizza")
     private List<Offer> offer;
+
 
     @ManyToMany
     @OnDelete(action = OnDeleteAction.CASCADE)
