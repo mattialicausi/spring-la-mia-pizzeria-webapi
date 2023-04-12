@@ -1,6 +1,8 @@
 // VARIABLES
 
 const domContainerList = document.getElementById('dom-container-list');
+const btnSearch = document.getElementById('btn-search');
+const formSearch = document.getElementById('form-search'); 
 const BASE_URL = 'http://localhost:8080/api/v1/pizza';
 
 
@@ -14,7 +16,7 @@ const getPizze = async () => {
     return response;
 };
 
-// api into JSON
+// api into JSON and put into the DOM
 
 const loadAllPizza = async () => {
     const response = await getPizze();
@@ -54,6 +56,8 @@ const createSingleItem = (item) => {
 
 }
 
+// create list of pizze
+
 const createPizzaList = (data) => {
 
     let list = "";
@@ -65,6 +69,38 @@ const createPizzaList = (data) => {
     return list;
 
 }
+
+// filter pizze by name
+
+function filterByName(pizze) {
+    const inputSearch = document.getElementById('input-search-name');
+    const inputSearchValue = inputSearch.value;
+  
+    if (inputSearchValue) {
+      const filteredList = pizze.filter((element) =>
+        element.name.toLowerCase().includes(inputSearchValue.toLowerCase())
+      );
+      console.log(filteredList);
+      return filteredList;
+
+    } else {
+        loadAllPizza();
+    }
+  }
+  
+  // add evento to the form
+
+  formSearch.addEventListener("submit", async (event) => {
+
+    event.preventDefault();
+
+    const allPizza = await getPizze();
+    const allPizzaData = await allPizza.json();
+    const filteredList = filterByName(allPizzaData);
+    domContainerList.innerHTML = createPizzaList(filteredList);
+    console.log("fatto");
+  });
+  
 
 
 //STARTING METHODS
