@@ -3,6 +3,7 @@
 const domContainerList = document.getElementById('dom-container-list');
 const btnSearch = document.getElementById('btn-search');
 const formSearch = document.getElementById('form-search'); 
+const formCreatePizza = document.getElementById('form-create-pizza');
 const BASE_URL = 'http://localhost:8080/api/v1/pizza';
 
 
@@ -12,7 +13,7 @@ const BASE_URL = 'http://localhost:8080/api/v1/pizza';
 
 const getPizze = async () => {
     const response = await fetch(BASE_URL);
-    console.log(response);
+    // console.log(response);
     return response;
 };
 
@@ -87,8 +88,20 @@ function filterByName(pizze) {
         loadAllPizza();
     }
   }
+
+  const postPizza = async (jsonData) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonData,
+    };
+    const response = await fetch(BASE_URL, fetchOptions);
+    return response;
+  };
   
-  // add evento to the form
+  // add event to the form for search
 
   formSearch.addEventListener("submit", async (event) => {
 
@@ -100,8 +113,34 @@ function filterByName(pizze) {
     domContainerList.innerHTML = createPizzaList(filteredList);
     console.log("fatto");
   });
-  
 
+  const savePizza = async (event) => {
+    // prevent default
+    event.preventDefault();
+    // read input values
+    const formData = new FormData(event.target);
+    const formDataObj = Object.fromEntries(formData.entries());
+    // VALIDATION
+    // produce a json
+    const formDataJson = JSON.stringify(formDataObj);
+    // send ajax request
+    const response = await postPizza(formDataJson);
+    // parse response
+    const responseBody = await response.json();
+    if (response.ok) {
+      // reload data
+      loadAllPizza();
+      // reset form
+      event.target.reset();
+    } else {
+      // handle error
+      console.log('ERROR');
+      console.log(response.status);
+      console.log(responseBody);
+    }
+  };
+  
+  formCreatePizza.addEventListener('submit', savePizza);
 
 //STARTING METHODS
 

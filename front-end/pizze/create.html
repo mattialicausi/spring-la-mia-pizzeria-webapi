@@ -43,9 +43,47 @@
               </nav>
         </header>
 
-    <div class="container">
-        <h1>Create pizza</h1>
-    </div>
+        <main>
+
+            <section>
+                <div class="container">
+                    <h1>Create pizza</h1>
+                </div>
+            </section>
+
+            <section class="container">
+                <form id="form-create-pizza" action="#">
+
+                    <div class="col-6">
+                        <label class="form-label" for="name">Name*</label>
+                        <input class="form-control" type="text" id="name" name="name" />
+                    </div>
+
+                    <div class="col-6">
+                        <label class="form-label" for="price">Price*</label>
+                        <input class="form-control" type="number" id="price" name="price" />
+                    </div>
+
+                    <div class="col-6">
+                        <label class="form-label" for="image">Image Url*</label>
+                        <input class="form-control" type="text" id="image" name="image" />
+                    </div>
+
+                    <div class="col-6">
+                        <label class="form-label" for="description">Description*</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-info">Save</button>
+                    </div>
+
+                </form>
+            </section>
+
+        </main>
+
+
     
 </body>
 </html>
