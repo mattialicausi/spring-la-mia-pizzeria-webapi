@@ -26,8 +26,16 @@ const loadAllPizza = async () => {
         const allPizza = await response.json();
         console.log(allPizza);
 
-        
         domContainerList.innerHTML = createPizzaList(allPizza);
+
+        // add event listeners
+        const deleteBtns = document.querySelectorAll('button[data-id]');
+        console.log(deleteBtns);
+        for (let btn of deleteBtns) {
+          btn.addEventListener('click', () => {
+            deletePizza(btn.dataset.id);
+          });
+        }
    
 
     } else {
@@ -37,6 +45,24 @@ const loadAllPizza = async () => {
 
 
 // create single item
+
+const createDeleteBtn = (pizza) => {
+  let btn = '';
+  const ingredients = pizza.ingredients;
+  const offers = pizza.offers;
+
+  if (ingredients !== null && ingredients.length > 0) {
+    // disabled button
+    btn = `<button class="btn btn-danger" disabled>
+            Elimina
+        </button>`;
+  } else {
+    btn = `<button data-id="${pizza.id}" class="btn btn-danger">
+            Elimina
+        </button>`;
+  }
+  return btn;
+};
 
 const createSingleItem = (item) => {
 
@@ -49,7 +75,7 @@ const createSingleItem = (item) => {
                 <h5>€ ${item.price}</h5>
             </div>
             <p class="card-text">${item.description}.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div>${createDeleteBtn(item)}</div>
         </div>
     </div>
     
@@ -140,10 +166,33 @@ function filterByName(pizze) {
     }
   };
   
-  formCreatePizza.addEventListener('submit', savePizza);
+
+
+  // delete pizza
+
+  const deletePizzaById = async (pizzaID) => {
+    const response = await fetch(BASE_URL + '/' + pizzaID, {method: 'DELETE'});
+    return response;
+  }
+
+
+  const deletePizza = async (pizzaID) => {
+    console.log('Delete pizza ' + pizzaID);
+    // call delete api
+    const response = await deletePizzaById(pizzaID);
+    // parse response
+    if (response.ok) {
+      // reload book list
+      loadAllPizza();
+    } else {
+      // handle error
+      console.log('ERROR');
+      console.log(response.status);
+    }
+  };
 
 //STARTING METHODS
 
-
+formCreatePizza.addEventListener('submit', savePizza);
 
 loadAllPizza();
