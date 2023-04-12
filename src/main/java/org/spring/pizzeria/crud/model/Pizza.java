@@ -23,8 +23,9 @@ public class Pizza {
     private Integer id;
 
     //relations
-    @JsonIgnore
+
     @OneToMany(mappedBy = "pizza")
+    @JsonIgnore
     private List<Offer> offer;
 
 
